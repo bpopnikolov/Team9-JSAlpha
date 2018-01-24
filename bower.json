@@ -1,0 +1,22 @@
+{
+  "name": "Team9-JSAlpha",
+  "homepage": "https://github.com/bpopnikolov/Team9-JSAlpha",
+  "authors": [
+    "Borislav Popnikolov <borislav.popnikolov@gmail.com>",
+    "",
+    ""
+  ],
+  "description": "recipe-book",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
