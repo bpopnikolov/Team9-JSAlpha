@@ -15,4 +15,5 @@ body {
     -o-background-size: cover;
     background-size: cover;
     height: 100%;
+    padding-top: 64px;
 }
