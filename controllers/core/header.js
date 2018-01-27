@@ -1,3 +1,5 @@
+import * as recipeController from './../recipes/recipes.js';
+
 export function init() {
 
     var activeRoute = window.location.hash;
@@ -27,7 +29,7 @@ export function init() {
     });
 
     $('#recipes-btn').on('click', function() {
-        $('.app-container').load('../../views/recipes/recipes.html');
+        $('.app-container').load('../../views/recipes/recipes.html',recipeController.init);
     });
 
 }
