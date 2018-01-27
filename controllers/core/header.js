@@ -16,7 +16,7 @@ export function init() {
         window.open('https://github.com/bpopnikolov/Team9-JSAlpha', '_blank');
     });
 
-    $('.git-logo').attr('src', '../../assets/images/GitHub-Mark-32px.png');
+    // $('.git-logo').attr('src', '../../assets/images/GitHub-Mark-32px.png');
 
     $('.logo').on('click', function() {
         $('.app-container').load('../../views/core/home.html');
