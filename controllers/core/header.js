@@ -1,24 +1,15 @@
-import * as recipeController from './../recipes/recipes.js';
+import * as RecipeController from '../recipes/recipes.js';
+import * as Router from '../../routes/router.js';
+
 
 export function init() {
-
-    var activeRoute = window.location.hash;
-
-    $(window).on('hashchange', function(e) {
-        var currentRoute = e.target.location.hash;
-        if (currentRoute !== activeRoute) {
-            $('.list .active').removeClass('active');
-            activeRoute = currentRoute;
-            var buttonId = currentRoute.substring(1) + '-btn';
-            $(`#${buttonId}`).addClass('active');
-        }
-    });
+    Router.init();
 
     $('#git-btn').on('click', function() {
         window.open('https://github.com/bpopnikolov/Team9-JSAlpha', '_blank');
     });
 
-    // $('.git-logo').attr('src', '../../assets/images/GitHub-Mark-32px.png');
+    $('.git-logo').attr('src', '../../assets/images/GitHub-Mark-32px.png');
 
     $('.logo').on('click', function() {
         $('.app-container').load('../../views/core/home.html');
@@ -29,7 +20,7 @@ export function init() {
     });
 
     $('#recipes-btn').on('click', function() {
-        $('.app-container').load('../../views/recipes/recipes.html',recipeController.init);
+        $('.app-container').load('../../views/recipes/recipes.html', RecipeController.init);
     });
 
 }

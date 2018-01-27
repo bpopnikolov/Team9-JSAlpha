@@ -1,9 +1,7 @@
-import * as headerController from './controllers/core/header.js';
-import * as recipeController from './controllers/recipes/recipes.js';
+import * as HeaderController from './controllers/core/header.js';
 
+$('header').load('./views/core/header.html', HeaderController.init);
 
-$('header').load('./views/core/header.html', headerController.init);
-$('.app-container').load('./views/recipes/recipes.html',recipeController.init); 
 
 
 

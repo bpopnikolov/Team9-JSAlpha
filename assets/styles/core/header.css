@@ -209,8 +209,7 @@
 }
 
 .navbar>.list>.item.link.active,
-.navbar>.list>.item.link:hover,
-.navbar>.list>.item.link:focus {
+.navbar>.list>.item.link:hover {
     color: #333;
     border-bottom-color: #555555;
 }
