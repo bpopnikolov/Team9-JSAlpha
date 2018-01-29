@@ -3,7 +3,7 @@ import * as RecipeController from '../controllers/recipes/recipes.js';
 export function init() {
     var routes = ['/', '#home', '#recipes'];
     var activeRoute = window.location.hash;
-
+    
     // if route is '/'  load home.html
     if (!window.location.hash) {
         window.location.hash = routes[1];
@@ -11,7 +11,7 @@ export function init() {
     }
 
     if (window.location.hash) {
-        if (routes.includes(activeRoute)) {
+        if (routes.includes(activeRoute) || activeRoute === '') {
             var page = activeRoute.substring(1);
             var $button = $(`#${page}-btn`);
             $button.addClass('active');
@@ -22,6 +22,10 @@ export function init() {
             } else if (page === 'recipes') {
                 $('.app-container').load(`../../views/recipes/${page}.html`, RecipeController.init);
             }
+        } else {
+            console.log('no route');
+            $('.app-container').load(`../../views/core/page-not-found.html`);
+            $('.list .active').removeClass('active');
         }
     }
 
@@ -33,7 +37,6 @@ export function init() {
             if (currentRoute !== activeRoute) {
                 // change which button is active depending on the route
                 $('.list .active').removeClass('active');
-                activeRoute = currentRoute;
                 var page = currentRoute.substring(1);
                 var $button = $(`#${page}-btn`);
                 $button.addClass('active');
@@ -47,7 +50,9 @@ export function init() {
             }
         } else {
             console.log('no route');
+            $('.app-container').load(`../../views/core/page-not-found.html`);
             $('.list .active').removeClass('active');
         }
+        activeRoute = currentRoute;
     });
 }
