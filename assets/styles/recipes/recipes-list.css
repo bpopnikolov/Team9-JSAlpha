@@ -1,0 +1,5 @@
+.recipes-list-container {
+    display: flex;
+    flex-direction: column;
+    background: rgba(191, 189, 186, 0.5);
+}
