@@ -9,6 +9,7 @@
     text-decoration: none;
     -webkit-transition: all 0.3s linear 0s;
     transition: all 0.3s linear 0s;
+    cursor: pointer;
 }
 
 .area {

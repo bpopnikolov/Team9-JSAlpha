@@ -3,7 +3,8 @@ import * as Router from '../../routes/router.js';
 
 
 export function init() {
-    Router.init();
+    Router.init({ routes: ['/', '#home', '#recipes'] });
+    
 
     $('#git-btn').on('click', function() {
         window.open('https://github.com/bpopnikolov/Team9-JSAlpha', '_blank');
@@ -12,15 +13,15 @@ export function init() {
     $('.git-logo').attr('src', '../../assets/images/GitHub-Mark-32px.png');
 
     $('.logo').on('click', function() {
-        $('.app-container').load('../../views/core/home.html');
+        window.location.hash = '#home';
     });
 
     $('#home-btn').on('click', function() {
-        $('.app-container').load('../../views/core/home.html');
+        window.location.hash = '#home';
     });
 
     $('#recipes-btn').on('click', function() {
-        $('.app-container').load('../../views/recipes/recipes.html', RecipeController.init);
+        window.location.hash = '#recipes';
     });
 
 }

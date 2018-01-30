@@ -1,26 +1,27 @@
 import * as RecipeController from '../controllers/recipes/recipes.js';
 
-export function init() {
-    var routes = ['/', '#home', '#recipes'];
-    var activeRoute = window.location.hash;
-    
+var routes = [];
+
+export function init(options) {
+    var routes = options.routes;
+    var activeRoute = getCurrentRoute();
+
     // if route is '/'  load home.html
-    if (!window.location.hash) {
-        window.location.hash = routes[1];
+    if (!location.hash) {
+        location.hash = routes[1];
         $('.app-container').load(`../views/core/home.html`);
     }
 
     if (window.location.hash) {
         if (routes.includes(activeRoute) || activeRoute === '') {
-            var page = activeRoute.substring(1);
-            var $button = $(`#${page}-btn`);
-            $button.addClass('active');
+            var view = activeRoute.substring(1);
+            changeActiveButton(view);
 
-            // load current page html into app-container
-            if (page === 'home') {
-                $('.app-container').load(`../../views/core/${page}.html`);
-            } else if (page === 'recipes') {
-                $('.app-container').load(`../../views/recipes/${page}.html`, RecipeController.init);
+            // load current view html into app-container
+            if (view === 'home') {
+                $('.app-container').load(`../../views/core/${view}.html`);
+            } else if (view === 'recipes') {
+                $('.app-container').load(`../../views/recipes/${view}.html`, RecipeController.init);
             }
         } else {
             console.log('no route');
@@ -31,28 +32,53 @@ export function init() {
 
 
     $(window).on('hashchange', function(e) {
-        var currentRoute = e.target.location.hash;
+        var currentRoute = getCurrentRoute();
+        var view = currentRoute.substring(1);
+        console.log(view);
         if (routes.includes(currentRoute)) {
-            console.log('has route');
+            console.log('has route change');
             if (currentRoute !== activeRoute) {
-                // change which button is active depending on the route
-                $('.list .active').removeClass('active');
-                var page = currentRoute.substring(1);
-                var $button = $(`#${page}-btn`);
-                $button.addClass('active');
 
-                // load current page html into app-container
-                if (page === 'home') {
-                    $('.app-container').load(`../../views/core/${page}.html`);
-                } else if (page === 'recipes') {
-                    $('.app-container').load(`../../views/recipes/${page}.html`, RecipeController.init);
+                changeActiveButton(view);
+
+                // load current view into app-container
+                if (view === 'home') {
+                    $('.app-container').load(`../../views/core/${view}.html`);
+                } else if (view === 'recipes') {
+                    $('.app-container').load(`../../views/recipes/${view}.html`, RecipeController.init);
                 }
             }
         } else {
-            console.log('no route');
+            console.log('no route change');
             $('.app-container').load(`../../views/core/page-not-found.html`);
             $('.list .active').removeClass('active');
         }
         activeRoute = currentRoute;
     });
+}
+
+
+
+function changeActiveButton(view) {
+    $('.list .active').removeClass('active');
+    var $button = $(`#${view}-btn`);
+    $button.addClass('active');
+}
+
+function clearSlashes(path) {
+    return path.toString().replace(/\/$/, '').replace(/^\//, '');
+}
+
+function checkRoute(route) {
+    var fragment = route || getCurrentRoute();
+
+    if (routes.includes(fragment)) {
+        return true;
+    }
+
+    return false;
+}
+
+function getCurrentRoute() {
+    return clearSlashes(decodeURI(location.hash + location.search));
 }

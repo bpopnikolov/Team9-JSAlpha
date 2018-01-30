@@ -12,14 +12,17 @@ firebase.initializeApp(config);
 export function getData(dbName, cb) {
     var dbRef = firebase.database().ref(dbName);
     dbRef.on('value', function(snap) {
+
         cb(snap.val(), null);
+    }, function(err) {
+        console.log(err);
     });
 }
 
 export function writeData(dbName, value, cb) {
     var dbRef = firebase.database().ref(dbName);
     var newRecipe = dbRef.push();
-    newRecipe.set(value, function (err) {
+    newRecipe.set(value, function(err) {
         cb(err);
     });
 }
