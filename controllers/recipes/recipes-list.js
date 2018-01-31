@@ -14,14 +14,17 @@ export function init() {
         result.forEach(recipe => {
             var $wrapper = $('<div>');
             $wrapper.addClass('foodBox');
-            var $title = $('<p>');
+            var $title = $('<h3>');
             $title.addClass('nameOfRecipe');
+            var $desc = $('<p>');
             var $imgUrl = $('<img>');
             $imgUrl.addClass('recipeImage');
 
             $title.text(recipe.name);
+            $desc.text(recipe.description);
             $imgUrl.attr('src', recipe.imgUrl);
             $wrapper.append($title);
+            $wrapper.append($desc);
             $wrapper.append($imgUrl);
             $container.append($wrapper);
         });
