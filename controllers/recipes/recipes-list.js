@@ -13,11 +13,11 @@ export function init() {
 
         result.forEach(recipe => {
             var $wrapper = $('<div>');
-            $wrapper.addClass('');
+            $wrapper.addClass('foodBox');
             var $title = $('<p>');
-            $title.addClass('');
+            $title.addClass('nameOfRecipe');
             var $imgUrl = $('<img>');
-            $imgUrl.addClass('');
+            $imgUrl.addClass('recipeImage');
 
             $title.text(recipe.name);
             $imgUrl.attr('src', recipe.imgUrl);

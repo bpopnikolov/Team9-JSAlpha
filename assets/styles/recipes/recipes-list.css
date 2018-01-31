@@ -3,3 +3,26 @@
     flex-direction: column;
     background: rgba(191, 189, 186, 0.5);
 }
+
+.foodBox {
+    border: 1px solid black;
+    height: 50px;
+    position: inline;
+}
+
+.nameOfRecipe {
+    float: left;
+    padding-left: 10px;
+    text-align: left;
+    position: absolute;
+    padding-top: 15px;
+}
+
+.recipeImage {
+    /* width: 10%; */
+    height: 100%;
+    float: right;
+    padding: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+}
