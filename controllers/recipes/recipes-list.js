@@ -2,7 +2,7 @@ import * as RecipesService from './recipes-service.js';
 
 export function init() {
 
-    RecipesService.getRecipes().then(function (data) {
+    RecipesService.getRecipes().then(function(data) {
         var $container = $('.recipes-list-container');
         var result = [];
         for (const key in data) {
@@ -24,14 +24,19 @@ export function init() {
             $wrapper.append($title);
             $wrapper.append($imgUrl);
             $container.append($wrapper);
-        }); 
+        });
     });
 
     $('#add-recipe').on('click', function() {
         RecipesService.saveRecipe({
             name: 'Yogurt and blueberry popsicles',
             description: `Good Living/Sweets/Desserts`,
-            ingredients: ['yogurt', 'blueberries']
+            ingredients: ['yogurt', 'blueberries'],
+            imgUrl: `https://www.daringgourmet.com/wp-content/uploads/2015/01/Greek-Yogurt-2-web-728px.jpg`
+        }).then(function(msg) {
+            console.log(msg);
+        }).catch(function(err) {
+            console.log(err);
         });
     });
 }

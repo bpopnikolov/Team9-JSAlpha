@@ -4,4 +4,5 @@ import * as DBService from './services/db-service/database-service.js';
 
 $(function() {
     $('header').load('./views/core/header.html', HeaderController.init);
+    $('.sidenav-container').load('./views/core/sidenav.html');
 });
