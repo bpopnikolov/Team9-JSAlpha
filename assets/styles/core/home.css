@@ -9,5 +9,7 @@
     text-align: center;
     font-size: 1.5em;
     background: rgba(191, 189, 186, 0.5);
+    box-shadow: 0 3px 5px -2px rgba(0, 0, 0, 0.5);
+    z-index: 5;
 }
 
