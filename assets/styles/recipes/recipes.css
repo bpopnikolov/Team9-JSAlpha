@@ -1,14 +1,23 @@
-.recipes-component{
+.recipes-component {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin:0 auto;
+    margin: auto auto;
     justify-content: center;
-    max-width:70%;
-    padding-top:2em;
-}
-.recipes-list{
-    order:1;
-    flex: 1 1 50%;
+    max-width: 70%;
     height: 100%;
+    padding-top: 50px;
+    /* overflow: hidden; */
+}
+
+.recipes-list-component {
+    order: 1;
+    flex: 1 1 50%;
+    height: 85%;
+}
+
+.recipe-details-component {
+    order: 1;
+    flex: 1 1 50%;
+    height: 90%;
 }

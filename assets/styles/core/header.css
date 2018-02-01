@@ -12,24 +12,9 @@
     cursor: pointer;
 }
 
-.navbar-component .area {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-    -webkit-box-align: stretch;
-    -ms-flex-align: stretch;
-    align-items: stretch;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 @media (max-width: 768px) {
     .navbar-component .area {
-        margin-left: 20px;
+        margin-left: 20px !important;
     }
 }
 
@@ -58,9 +43,26 @@
     width: 100%;
     position: fixed;
     z-index: 1000;
+    top: 0;
+    left: 0;
 }
 
-.navbar-component> .navbar {
+.navbar-component .area {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbar-component>.navbar {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
@@ -99,6 +101,9 @@
 @media (min-width: 768px) {
     .navbar>.toggle {
         display: none;
+    }
+    .sidenav-container {
+        visibility: hidden;
     }
 }
 
@@ -223,7 +228,7 @@
     cursor: pointer;
 }
 
-.navbar > .toggle {
+.navbar>.toggle {
     outline: none;
     border: 0;
     display: inline-block;
@@ -234,26 +239,29 @@
     white-space: nowrap;
     cursor: pointer;
     -ms-touch-action: manipulation;
-        touch-action: manipulation;
+    touch-action: manipulation;
     -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     padding: 22px;
-  }
-  @media (min-width: 768px) {
-    .navbar > .toggle {
-      display: none;
+}
+
+@media (min-width: 768px) {
+    .navbar>.toggle {
+        display: none;
     }
-  }
-  .navbar > .toggle > .icon {
+}
+
+.navbar>.toggle>.icon {
     position: relative;
     margin-top: 8px;
     margin-bottom: 8px;
-  }
-  .navbar > .toggle > .icon,
-  .navbar > .toggle > .icon:before,
-  .navbar > .toggle > .icon:after {
+}
+
+.navbar>.toggle>.icon,
+.navbar>.toggle>.icon:before,
+.navbar>.toggle>.icon:after {
     display: block;
     width: 24px;
     height: 3px;
@@ -262,26 +270,32 @@
     transition: background-color 0.3s linear, transform 0.3s linear;
     transition: background-color 0.3s linear, transform 0.3s linear, -webkit-transform 0.3s linear;
     background-color: #555555;
-  }
-  .navbar > .toggle > .icon:before,
-  .navbar > .toggle > .icon:after {
+}
+
+.navbar>.toggle>.icon:before,
+.navbar>.toggle>.icon:after {
     position: absolute;
     content: "";
-  }
-  .navbar > .toggle > .icon:before {
+}
+
+.navbar>.toggle>.icon:before {
     top: -8px;
-  }
-  .navbar > .toggle > .icon:after {
+}
+
+.navbar>.toggle>.icon:after {
     top: 8px;
-  }
-  .navbar > .toggle.active > .icon {
+}
+
+.navbar>.toggle.active>.icon {
     background-color: transparent;
-  }
-  .navbar > .toggle.active > .icon:before {
+}
+
+.navbar>.toggle.active>.icon:before {
     -webkit-transform: translateY(8px) rotate(45deg);
-            transform: translateY(8px) rotate(45deg);
-  }
-  .navbar > .toggle.active > .icon:after {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.navbar>.toggle.active>.icon:after {
     -webkit-transform: translateY(-8px) rotate(-45deg);
-            transform: translateY(-8px) rotate(-45deg);
-  }
+    transform: translateY(-8px) rotate(-45deg);
+}

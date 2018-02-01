@@ -1,33 +1,38 @@
 /* RECIPE DETAILS */
-.recipes-details{
-    order:1;
+
+.recipes-details {
+    order: 1;
     /* background: white; */
     flex-basis: 50%;
     /* min-width: 500px; */
 }
-.recipe-desc-main{
-    padding:1em;
+
+.recipe-desc-main {
+    padding: 1em;
 }
-.recipe-desc{
+
+.recipe-desc {
     background: #fff;
     text-align: left;
     width: 100%;
     float: left;
-    margin-bottom:2em;
-   box-shadow:  1px 0px 18px rgba(0, 0, 0, 0.5);
+    /* margin-bottom: 2em; */
+    box-shadow: 1px 0px 18px rgba(0, 0, 0, 0.5);
 }
-figure{
+
+figure {
     /* margin-bottom: 0; */
-    margin:0;
+    margin: 0;
     position: relative;
 }
 
-.recipe-image{
+.recipe-image {
     display: block;
     width: 100%;
     height: auto;
 }
-.tag{
+
+.tag {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -38,43 +43,48 @@ figure{
     display: inline-block;
     zoom: 1;
 }
-.recipe-desc-inner{
+
+.recipe-desc-inner {
     padding: 0.8em 1.8em;
 }
-.recipe-desc-inner h1{
+
+.recipe-desc-inner h1 {
     color: #34495e;
-    margin:0.3em 0 0.6em;
+    margin: 0.3em 0 0.6em;
 }
+
 .recipe-desc-inner p {
-    color:#97a0ae;
+    color: #97a0ae;
 }
-.recipes-ingredients{
+
+.recipes-ingredients {
     background: #f7f7f7;
     margin: 1.4em 0;
     padding: 1em;
 }
 
-.recipes-ingredients h2{
-    color:#34495e;
+.recipes-ingredients h2 {
+    color: #34495e;
     /* padding-bottom: 0.4em; */
     /* border-bottom: 1px solid rgba(0, 0, 0, 0.05); */
     font-weight: 100;
 }
 
-.recipes-ingredients ul li{
-    padding:0.7em 0 0.7em;
+.recipes-ingredients ul li {
+    padding: 0.7em 0 0.7em;
     font-weight: 100;
     font-size: 0.9em;
 }
-.recipes-ingredients ul li:not(:last-child){
+
+.recipes-ingredients ul li:not(:last-child) {
     border-bottom: 1px dotted rgba(0, 0, 0, 0.633);
 }
 
 @media (max-width: 1200px) {
-    .recipes-component{
-        max-width:90%;
+    .recipes-component {
+        max-width: 90%;
     }
-    .recipes-component p{
+    .recipes-component p {
         font-size: 0.9em;
     }
     .recipes-component ul li {
@@ -83,11 +93,11 @@ figure{
 }
 
 @media (max-width: 992px) {
-    .recipes-component{
-        max-width:90%;
+    .recipes-component {
+        max-width: 90%;
         padding-top: 1em;
     }
-    .recipes-component p{
+    .recipes-component p {
         font-size: 0.8em;
     }
     .recipes-component ul li {
@@ -96,10 +106,11 @@ figure{
 }
 
 @media (max-width: 768px) {
-    .recipes-component{
+    .recipes-component {
         flex-direction: column;
     }
-    .recipes-details, .recipes-list{
+    .recipes-details,
+    .recipes-list {
         flex-basis: 100%;
     }
 }

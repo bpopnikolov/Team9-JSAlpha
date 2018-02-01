@@ -35,3 +35,13 @@ export function deleteRecipe(id) {
         });
     });
 }
+
+export function onRecipesChange(cb) {
+    DbService.watchForDataChange('recipes/', function(data, err) {
+        if (err) {
+            cb(null, err);
+        } else {
+            cb(data);
+        }
+    });
+}

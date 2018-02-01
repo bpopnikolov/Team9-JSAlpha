@@ -1,6 +1,3 @@
-.recipes-list-component {
-    padding: 1em;
-}
 
 .recipes-list-container {
     display: flex;
@@ -8,29 +5,38 @@
     /* background: #e1e3e5; */
     /* box-shadow: 1px 0px 18px rgba(0, 0, 0, 0.5); */
     padding: 0.5em;
+    overflow-y: auto;
+    height: 100%;
 }
 
 .foodBox {
     height: 50px;
     position: inline;
-    margin: 2px 2px 5px 2px;
+    margin: 2px 0 5px 20px;
+    height: 100px;
     z-index: 5;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 3px 5px -2px rgba(0, 0, 0, 0.5);
+    color: #555555;
     /* border-radius: 5px; */
 }
 
 .foodBox h3 {
-color:#34495e;
+    color: #34495e;
 }
-.foodBox p {
- color: #555555;
+
+.foodBox.active {
+    background-color: #34495e;
+    color: white;
+}
+
+.foodBox.active h3 {
+    color: #fff;
 }
 .nameOfRecipe {
     float: left;
     padding-left: 10px;
     text-align: left;
-    position: absolute;
     padding-top: 15px;
 }
 
