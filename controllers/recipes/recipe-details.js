@@ -1,4 +1,7 @@
 export function init() {
+    $("#edit-recipe").on('click',function(){
+        $('#modalEdit').show();
+    });
 
     var $container = $('.recipe-desc');
     $container.css('display', 'none');
@@ -60,4 +63,15 @@ export function init() {
         $container.append($recipeInfoContainer);
 
     }
+    $('#close-edit').on('click',function(){
+        $('#modalEdit').hide();
+        
+    })
+
+    $('#remove-recipe').on('click',function(){
+        var result = confirm("Want to delete?");
+        if (result) {
+            alert('this recipe is deleted');
+        }
+    })
 }
