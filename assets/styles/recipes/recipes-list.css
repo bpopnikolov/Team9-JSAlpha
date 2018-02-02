@@ -11,34 +11,49 @@
 }
 
 .foodBox {
-    height: 50px;
-    position: inline;
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: row;
+    /* height: 50px; */
+    /* width: 400px; */
+    /* position: inline; */
     margin: 2px 2px 5px 2px;
     z-index: 5;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 3px 5px -2px rgba(0, 0, 0, 0.5);
     /* border-radius: 5px; */
+    height: 3.5em;
 }
 
-.foodBox h3 {
-color:#34495e;
-}
-.foodBox p {
- color: #555555;
-}
-.nameOfRecipe {
-    float: left;
-    padding-left: 10px;
-    text-align: left;
-    position: absolute;
-    padding-top: 15px;
+.texts {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 80%;
 }
 
-.recipeImage {
-    /* width: 10%; */
-    height: 100%;
-    float: right;
-    padding: 10px;
-    padding-right: 10px;
-    padding-top: 3px;
+.foodBox .texts h3 {
+    color: #34495e;
+    font-size: 1.1em;
+    align-self:start;
+}
+
+ .foodBox .texts p {
+    color: #555555;
+    font-size: 0.85em;
+    align-self:center;
+}
+
+.foodBox .image {
+    flex: 1 1 20%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    /* justify-content: center; */
+}
+
+.foodBox .image img {
+    /* display: none; */
+    height: auto;
+    width: 100%;
 }
