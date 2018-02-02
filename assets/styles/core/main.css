@@ -3,14 +3,11 @@
 }
 
 body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
     font-family: 'Montserrat', sans-serif;
     margin: 0;
-    /* height: 100vh; */
-    background: url(../../images/pexels-photo-240155.jpeg) no-repeat center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
 }
 
 a {
@@ -34,6 +31,11 @@ ul {
 
 .app-container {
     margin-top: 64px;
-    height: 100vh;
-    overflow-y: auto;
+    display: flex;
+    flex: 1 1 100%;
+    background: url(../../images/pexels-photo-240155.jpeg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }

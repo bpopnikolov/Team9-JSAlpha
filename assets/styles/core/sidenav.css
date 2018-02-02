@@ -1,7 +1,7 @@
 
 .sidenav-component {
     z-index: -1;
-    padding-top: 64px;
+    margin-top: 64px;
     height: 100%;
     width: 100%;
     display: flex;

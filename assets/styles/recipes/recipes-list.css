@@ -1,12 +1,14 @@
-
 .recipes-list-container {
+    flex: 1 1 100%;
     display: flex;
     flex-direction: column;
-    /* background: #e1e3e5; */
-    /* box-shadow: 1px 0px 18px rgba(0, 0, 0, 0.5); */
-    padding: 0.5em;
+    margin-top: 5px;
     overflow-y: auto;
-    height: 100%;
+    padding: 5px;
+}
+
+.add-new-recipe {
+    flex: 1 1;
 }
 
 .foodBox {
@@ -33,6 +35,7 @@
 .foodBox.active h3 {
     color: #fff;
 }
+
 .nameOfRecipe {
     float: left;
     padding-left: 10px;
