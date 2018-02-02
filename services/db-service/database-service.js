@@ -18,6 +18,13 @@ export function getData(dbName, cb) {
     });
 }
 
+export function watchForDataChange(dbName, cb) {
+    var dbRef = firebase.database().ref(dbName);
+    dbRef.on('value', function (snap) {
+        cb(snap.val(), null);
+    });
+}
+
 export function writeData(dbName, value, cb) {
     var dbRef = firebase.database().ref(dbName);
     var newRecipe = dbRef.push();

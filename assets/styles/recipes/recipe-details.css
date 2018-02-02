@@ -1,0 +1,14 @@
+/* RECIPE DETAILS */
+
+
+
+.recipe-desc {
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    /* margin-bottom: 2em; */
+    box-shadow: 1px 0px 18px rgba(0, 0, 0, 0.5);
+}
+
+

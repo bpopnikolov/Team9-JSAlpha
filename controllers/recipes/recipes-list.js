@@ -53,7 +53,12 @@ export function init() {
         });
     });
 
-    $('#add-recipe').on('click', function () {
+
+    RecipesService.onRecipesChange(function (data, err) {
+        console.log(data);
+    });
+
+    $('#add-recipe').on('click', function() {
         RecipesService.saveRecipe({
             name: 'Yogurt and blueberry popsicles',
             description: `Good Living/Sweets/Desserts`,
@@ -64,5 +69,10 @@ export function init() {
         }).catch(function (err) {
             console.log(err);
         });
+    });
+
+
+    $('.recipes-list-container').on('click', '.foodBox', function () {
+        $(this).toggleClass('active').siblings().removeClass('active');
     });
 }
