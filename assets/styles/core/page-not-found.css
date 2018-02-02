@@ -1,8 +1,8 @@
 .page-not-found-component {
+    flex: 1 1 100%;
     display: flex;
     flex-direction: column;
     align-content: center;
-    height: 100%;
 }
 
 .page-not-found-container {
