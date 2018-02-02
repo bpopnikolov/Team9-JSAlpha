@@ -2,11 +2,13 @@ import * as DbService from '../../services/db-service/database-service.js';
 
 export function saveRecipe(recipe) {
     return new Promise(function(resolve, reject) {
-        DbService.writeData('recipes', recipe, function(err) {
+        DbService.writeData('recipes', recipe, function(response, err) {
             if (err) {
                 reject(err);
             } else {
-                resolve(`The recipes was saved successfully!`);
+                var savedRecipe = response.data;
+                savedRecipe.id = response.key;
+                resolve(savedRecipe);
             }
         });
     });

@@ -20,18 +20,25 @@ export function getData(dbName, cb) {
 
 export function watchForDataChange(dbName, cb) {
     var dbRef = firebase.database().ref(dbName);
-    dbRef.on('value', function (snap) {
+    dbRef.on('value', function(snap) {
+        console.log(snap.val(), 'CHANGE WATCHER');
         cb(snap.val(), null);
     });
 }
 
 export function writeData(dbName, value, cb) {
     var dbRef = firebase.database().ref(dbName);
-    var newRecipe = dbRef.push();
-    newRecipe.set(value).then(function() {
-        cb();
+    var dbEntry = dbRef.push();
+    dbEntry.set(value).then(function() {
+        dbEntry.once('value').then(function(snap) {
+            var data = snap.val();
+            cb({
+                data: data,
+                key: dbEntry.key
+            });
+        });
     }).catch(function(err) {
-        cb(err);
+        cb(null, err);
     })
 }
 
