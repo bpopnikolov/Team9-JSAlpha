@@ -1,27 +1,48 @@
 var $container;
+var $editRecipeForm;
 var sub1;
 var sub2;
 
 export function init() {
 
+    $container = $('.recipe-desc');
+    $container.css('display', 'none');
+    $editRecipeForm = $('#editRecipeForm');
+    var currentLoadedRecipe;
+
     sub1 = PubSub.subscribe('recipe-was-selected', function(msg, data) {
         console.log(data);
         $container.css('display', 'flex');
+        $container.html('');
+        currentLoadedRecipe = data;
         renderDetails(data);
     });
-    
+
     sub2 = PubSub.subscribe('recipe-was-unselected', function(msg, data) {
         console.log('unselected');
         console.log(data);
         $container.css('display', 'none');
         $container.html('');
+        currentLoadedRecipe = null;
     });
 
-    $container = $('.recipe-desc');
-    $container.css('display', 'none');
 
-    $container.on('click', '#settingsButton', function () {
-        var ul = $container.find('.dropdownMenu').slideToggle(200);
+    $container.on('click', '#settingsButton, .dropdownMenu li', function() {
+        $container.find('.dropdownMenu').slideToggle(200);
+        $container.find('.icon-gear').toggleClass('down');
+    });
+
+
+    $container.on('click', '#editRecipeBtn', function () {
+        $editRecipeForm.show();
+    });
+
+    $editRecipeForm.on('click', '#closeEditForm', function () {
+        $editRecipeForm.hide();
+    });
+
+    $container.on('click', '#deleteRecipeBtn', function() {
+        console.log('DELETEd');
     });
 
 }
@@ -41,16 +62,18 @@ function renderDetails(recipe) {
     $settingsButton.attr('id', 'settingsButton');
     var $settingsSpan = $('<span>');
     $settingsButton.append($settingsSpan);
-    $settingsSpan.addClass('icon icon-gear');
+    $settingsSpan.addClass('icon icon-gear rotate');
     $buttonContainer.append($settingsButton);
 
     var $settingsDropdown = $('<ul>');
     $settingsDropdown.addClass('dropdownMenu')
     var $menuEditBtn = $('<li>');
     $menuEditBtn.addClass('item');
+    $menuEditBtn.attr('id', 'editRecipeBtn');
     $menuEditBtn.text('Edit');
     var $menuDeleteBtn = $('<li>');
     $menuDeleteBtn.addClass('item');
+    $menuDeleteBtn.attr('id', 'deleteRecipeBtn');
     $menuDeleteBtn.text('Delete');
     $settingsDropdown.append($menuEditBtn);
     $settingsDropdown.append($menuDeleteBtn);
@@ -93,6 +116,10 @@ function renderDetails(recipe) {
 
     $container.append($imgContainer);
     $container.append($recipeInfoContainer);
+
+}
+
+function resetContainer() {
 
 }
 

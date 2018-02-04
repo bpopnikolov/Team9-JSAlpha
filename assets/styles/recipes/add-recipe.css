@@ -100,7 +100,7 @@ textarea:focus {
     border-radius: 4px;
 }
 
-button {
+.modal-content-edit > button {
     padding: 5px 15px;
     margin: 5px;
     min-width: 100px

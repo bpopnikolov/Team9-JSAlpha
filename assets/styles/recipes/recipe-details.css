@@ -44,8 +44,17 @@
     cursor: pointer;
 }
 
+.rotate {
+    transition: all 0.4s;
+}
+
+.rotate.down{
+    transform: rotate(40deg);
+}
+
 .dropdownMenu>.item:hover {
     background-color: rgba(85, 85, 85, 0.3);
+    transition: background-color 0.3s ease-out;
 }
 
 .recipe-image img {
