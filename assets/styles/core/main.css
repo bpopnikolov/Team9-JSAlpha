@@ -78,6 +78,52 @@ p {
     transition: width .2s ease-out, padding-top .2s ease-out;
 }
 
+.icon-btn{ 
+    display:inline-block; 
+    min-width:14px;
+    line-height: 16px;
+    margin:5px;
+    background: rgba(255, 255, 255, 0.9);
+    color:#666; /* Icon Color */
+    font-size: 10pt;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius:2px;
+    padding:10px;
+    cursor: pointer;
+  }
+  .icon-btn > .label{
+    display:block;
+    padding-left:10px;
+    line-height: 14px;
+    float:right;
+    cursor:pointer;
+  }
+  
+  .icon{ 
+    float:left;
+    width:14px; 
+    height:14px; 
+    position:relative; 
+    display:block; 
+  }
+  .icon:before, 
+  .icon:after{ 
+    position:absolute; 
+    content:""; 
+    display:block; 
+  }
+  
+  .icon-gear:before{
+    width:14px;
+    height:14px;
+    box-shadow:0 0 0 4px inset; 
+    border-radius:16px; 
+    border:1px dashed; 
+    top:-1px;
+    left:-1px;
+  }
+
 .app-container {
     margin-top: 64px;
     display: flex;

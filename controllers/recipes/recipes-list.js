@@ -68,7 +68,7 @@ export function init() {
         var $imgUrlInput = $('#addFormImageInput');
         var $descInput = $('#addFormDescInput');
         var $ingrInput = $('#addFormIngrInput');
-        
+
         var ingr = $ingrInput.val().split('\n');
 
         RecipesService.saveRecipe({
@@ -76,15 +76,12 @@ export function init() {
             imgUrl: $imgUrlInput.val(),
             description: $descInput.val(),
             ingredients: ingr,
-        }).then(function (savedRecipe) {
+        }).then(function(savedRecipe) {
             //reset form
-            $titleInput.val('');
-            $imgUrlInput.val('');
-            $descInput.val('');
-            $ingrInput.val('');
+            $addRecipeForm.find('input[type=text], textarea').val('');
 
             $addRecipeForm.hide();
-            
+
             allRecipes.push(savedRecipe);
             renderRecipe(savedRecipe);
         }).catch(function(err) {
@@ -92,7 +89,7 @@ export function init() {
         });
     });
 
-    $closeAddForm.on('click', function () {
+    $closeAddForm.on('click', function() {
         $addRecipeForm.hide();
     });
 }

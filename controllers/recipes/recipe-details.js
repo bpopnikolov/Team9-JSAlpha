@@ -20,21 +20,10 @@ export function init() {
     $container = $('.recipe-desc');
     $container.css('display', 'none');
 
-    $('#close-edit').on('click', function() {
-        $('#modalEdit').hide();
-
+    $container.on('click', '#settingsButton', function () {
+        var ul = $container.find('.dropdownMenu').slideToggle(200);
     });
 
-    $("#edit-recipe").on('click', function() {
-        $('#modalEdit').show();
-    });
-
-    $('#remove-recipe').on('click', function() {
-        var result = confirm("Want to delete?");
-        if (result) {
-            alert('this recipe is deleted');
-        }
-    });
 }
 
 function renderDetails(recipe) {
@@ -43,8 +32,34 @@ function renderDetails(recipe) {
 
     var $imgContainer = $('<div>');
     $imgContainer.addClass('recipe-image');
+
+    var $buttonContainer = $('<div>');
+    $buttonContainer.addClass('settingsContainer');
+
+    var $settingsButton = $('<a>');
+    $settingsButton.addClass('icon-btn');
+    $settingsButton.attr('id', 'settingsButton');
+    var $settingsSpan = $('<span>');
+    $settingsButton.append($settingsSpan);
+    $settingsSpan.addClass('icon icon-gear');
+    $buttonContainer.append($settingsButton);
+
+    var $settingsDropdown = $('<ul>');
+    $settingsDropdown.addClass('dropdownMenu')
+    var $menuEditBtn = $('<li>');
+    $menuEditBtn.addClass('item');
+    $menuEditBtn.text('Edit');
+    var $menuDeleteBtn = $('<li>');
+    $menuDeleteBtn.addClass('item');
+    $menuDeleteBtn.text('Delete');
+    $settingsDropdown.append($menuEditBtn);
+    $settingsDropdown.append($menuDeleteBtn);
+    $buttonContainer.append($settingsDropdown);
+
     var $recipeImg = $('<img>');
     $recipeImg.attr('src', recipe.imgUrl);
+
+    $imgContainer.append($buttonContainer);
     $imgContainer.append($recipeImg);
 
     var $recipeInfoContainer = $('<div>');
