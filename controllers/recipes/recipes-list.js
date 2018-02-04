@@ -1,10 +1,16 @@
 import * as RecipesService from './recipes-service.js';
-
+//domCashe
+var $container;
+var $addRecipeForm;
 
 export function init() {
 
-    //domCashe
-    var $container = $('.recipes-list-container');
+    $container = $('.recipes-list-container');
+    $addRecipeForm = $('#addRecipeForm');
+    var $addRecipeBtn = $('#addRecipe');
+    var $addRecipeFormBtn = $('#addFormAddRecipeBtn');
+    var $closeAddForm = $('#closeAddForm');
+
 
     var allRecipes = [];
 
@@ -34,23 +40,8 @@ export function init() {
     // });
 
 
-    $('#addRecipe').on('click', function() {
-        RecipesService.saveRecipe({
-            name: 'Yogurt and blueberry popsicles',
-            description: `Good Living/Sweets/Desserts`,
-            ingredients: ['yogurt', 'blueberries','blueberries','blueberries','blueberries','blueberries','blueberries','blueberries','blueberries','blueberries','blueberries'],
-            imgUrl: `https://www.daringgourmet.com/wp-content/uploads/2015/01/Greek-Yogurt-2-web-728px.jpg`
-        }).then(function (savedRecipe) {
-            allRecipes.push(savedRecipe);
-            renderRecipe(savedRecipe);
-        }).catch(function(err) {
-            console.log(err);
-        });
 
-    });
-
-
-    $('.recipes-list-container').on('click', '.foodBox', function() {
+    $container.on('click', '.foodBox', function() {
         var $recipe = $(this);
         var recipeId = $(this).attr('data-id');
         var recipeObj = allRecipes.find(function(el) {
@@ -68,34 +59,75 @@ export function init() {
         }
     });
 
-    function renderRecipe(recipe) {
+    $addRecipeBtn.on('click', function() {
+        $addRecipeForm.show();
+    });
 
-        var $wrapper = $('<div>');
-        $wrapper.attr('data-id', recipe.id);
-        $wrapper.addClass('foodBox');
-        var $title = $('<h3>');
-        var $desc = $('<p>');
-        // ------------------------------------
-        var $descFrame = $('<div>');
-        $descFrame.append($title);
-        $descFrame.append($desc);
-        $descFrame.addClass('texts');
-        // ------------------------------------
-        var $imgUrl = $('<img>');
-        // ------------------------------------ 
-        var $imgFrame = $('<div>');
-        $imgFrame.append($imgUrl);
-        $imgFrame.addClass('image');
-        // ------------------------------------
+    $addRecipeFormBtn.on('click', function() {
+        var $titleInput = $('#addFormTitleInput');
+        var $imgUrlInput = $('#addFormImageInput');
+        var $descInput = $('#addFormDescInput');
+        var $ingrInput = $('#addFormIngrInput');
+        
+        var ingr = $ingrInput.val().split('\n');
 
-        $title.text(recipe.name);
-        $desc.text(recipe.description);
-        $imgUrl.attr('src', recipe.imgUrl);
-        // ------------------------------------
-        $wrapper.append($descFrame);
-        $wrapper.append($imgFrame);
-        // ------------------------------------
+        RecipesService.saveRecipe({
+            name: $titleInput.val(),
+            imgUrl: $imgUrlInput.val(),
+            description: $descInput.val(),
+            ingredients: ingr,
+        }).then(function (savedRecipe) {
+            //reset form
+            $titleInput.val('');
+            $imgUrlInput.val('');
+            $descInput.val('');
+            $ingrInput.val('');
 
-        $container.append($wrapper);
-    }
+            $addRecipeForm.hide();
+            
+            allRecipes.push(savedRecipe);
+            renderRecipe(savedRecipe);
+        }).catch(function(err) {
+            console.log(err);
+        });
+    });
+
+    $closeAddForm.on('click', function () {
+        $addRecipeForm.hide();
+    });
+}
+
+function renderRecipe(recipe) {
+
+    var $wrapper = $('<div>');
+    $wrapper.attr('data-id', recipe.id);
+    $wrapper.addClass('foodBox');
+    var $title = $('<h3>');
+    var $desc = $('<p>');
+    // ------------------------------------
+    var $descFrame = $('<div>');
+    $descFrame.append($title);
+    $descFrame.append($desc);
+    $descFrame.addClass('texts');
+    // ------------------------------------
+    var $imgUrl = $('<img>');
+    // ------------------------------------ 
+    var $imgFrame = $('<div>');
+    $imgFrame.append($imgUrl);
+    $imgFrame.addClass('image');
+    // ------------------------------------
+
+    $title.text(recipe.name);
+    $desc.text(recipe.description);
+    $imgUrl.attr('src', recipe.imgUrl);
+    // ------------------------------------
+    $wrapper.append($descFrame);
+    $wrapper.append($imgFrame);
+    // ------------------------------------
+
+    $container.append($wrapper);
+}
+
+export function destroyComponent() {
+    $container = null;
 }

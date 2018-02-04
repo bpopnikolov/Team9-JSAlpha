@@ -6,3 +6,7 @@ export function init() {
     $('.recipe-details-component').load('./views/recipes/recipe-details.html', RecipeDetailsController.init); 
 }
 
+export function destroyComponent() {
+    RecipesListController.destroyComponent();
+    RecipeDetailsController.destroyComponent();
+}

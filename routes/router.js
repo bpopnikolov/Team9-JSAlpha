@@ -1,10 +1,10 @@
 import * as RecipeController from '../controllers/recipes/recipes.js';
 
 var routes = [];
+var activeRoute = getCurrentRoute();
 
 export function init(options) {
     var routes = options.routes;
-    var activeRoute = getCurrentRoute();
 
     // if route is '/'  load home.html
     if (!location.hash) {
@@ -18,11 +18,7 @@ export function init(options) {
             changeActiveButton(view);
 
             // load current view html into app-container
-            if (view === 'home') {
-                $('.app-container').load(`../../views/core/${view}.html`);
-            } else if (view === 'recipes') {
-                $('.app-container').load(`../../views/recipes/${view}.html`, RecipeController.init);
-            }
+            renderView(view);
         } else {
             console.log('no route');
             $('.app-container').load(`../../views/core/page-not-found.html`);
@@ -38,15 +34,10 @@ export function init(options) {
         if (routes.includes(currentRoute)) {
             console.log('has route change');
             if (currentRoute !== activeRoute) {
-
                 changeActiveButton(view);
 
                 // load current view into app-container
-                if (view === 'home') {
-                    $('.app-container').load(`../../views/core/${view}.html`);
-                } else if (view === 'recipes') {
-                    $('.app-container').load(`../../views/recipes/${view}.html`, RecipeController.init);
-                }
+                renderView(view);
             }
         } else {
             console.log('no route change');
@@ -81,4 +72,13 @@ function checkRoute(route) {
 
 function getCurrentRoute() {
     return clearSlashes(decodeURI(location.hash + location.search));
+}
+
+function renderView(view) {
+    if (view === 'home') {
+        PubSub.publish('recipe-was-unloaded');
+        $('.app-container').load(`../../views/core/${view}.html`);
+    } else if (view === 'recipes') {
+        $('.app-container').load(`../../views/recipes/${view}.html`, RecipeController.init);
+    }
 }

@@ -1,51 +1,40 @@
 <div class="add-new-recipe">
-    <button id="addRecipe" class="btn" type="button"><span>Add new recipe</span></button>
+    <button id="addRecipe" class="btn" type="button"><span>Add New Recipe</span></button>
 </div>
 
 <div class="recipes-list-container">
 
 </div>
 
-<div id="add-recipe-modal" class="modal">
-
+<div id="addRecipeForm" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
-        <span class="close" id="close-add">&times;</span>
+        <span class="close" id="closeAddForm">&times;</span>
         <article class="main-content">
             <header>
                 <h1>Add Recipe</h1>
             </header>
             <div class="form-group">
                 <label>Recipe Title</label>
-                <input value="" class="input-control" id="title-input" placeholder="Add your title..." />
+                <input value="" class="input-control" id="addFormTitleInput" placeholder="Add your title..." />
             </div>
             <div class="form-group">
                 <label>Image URL</label>
-                <input value="" class="input-control" id="image-url-input" placeholder="Add your image url..." />
+                <input value="" class="input-control" id="addFormImageInput" placeholder="Add your image url..." />
             </div>
             <div class="form-group">
                 <label>Description</label>
-                <textarea class="input-control" rows="10" id="description-input" placeholder="Add your description..."></textarea>
+                <textarea class="input-control" rows="10" id="addFormDescInput" placeholder="Add your description..."></textarea>
             </div>
             <div class="form-group">
                 <label>Ingredients</label>
-                <textarea class="input-control" rows="7" id="ingredients-input" placeholder="Add ingredients..."></textarea>
+                <textarea class="input-control" rows="7" id="addFormIngrInput" placeholder="Add ingredients..."></textarea>
             </div>
             <div class="form-group">
                 <label>&nbsp;</label>
-                <input type="button" class="form-button" id="add-real-recipe" value="Add Recipe" />
+                <button type="button" class="form-button" id="addFormAddRecipeBtn">Add Recipe</button>
             </div>
         </article>
     </div>
-    <script>
-        $('#add-recipe').on('click', function () {
-            $('#add-recipe-modal').show();
-        });
-
-        $('#close-add').on('click', function () {
-            $('#add-recipe-modal').hide();
-        });
-    </script>
-
 </div>
 
