@@ -92,6 +92,11 @@ p {
     padding:10px;
     cursor: pointer;
   }
+  .icon-btn:hover {
+      background-color: #34495e;
+      color: #fff;
+  }
+
   .icon-btn > .label{
     display:block;
     padding-left:10px;

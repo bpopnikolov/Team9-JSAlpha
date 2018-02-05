@@ -45,7 +45,7 @@ export function writeData(dbName, value, cb) {
 export function deleteData(dbName, id, cb) {
     var dbRef = firebase.database().ref(dbName + id);
     dbRef.remove().then(function() {
-        cb();
+        cb(id, null);
     }).catch(function(err) {
         cb(err);
     });

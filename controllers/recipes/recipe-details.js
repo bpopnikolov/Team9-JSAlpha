@@ -1,7 +1,9 @@
+import * as RecipesService from './recipes-service.js';
+
 var $container;
 var $editRecipeForm;
-var sub1;
-var sub2;
+var recipeWasSelectedSub;
+var recipeWasUnselectedSub;
 
 export function init() {
 
@@ -10,19 +12,17 @@ export function init() {
     $editRecipeForm = $('#editRecipeForm');
     var currentLoadedRecipe;
 
-    sub1 = PubSub.subscribe('recipe-was-selected', function(msg, data) {
+    recipeWasSelectedSub = PubSub.subscribe('recipe-was-selected', function(msg, data) {
         console.log(data);
-        $container.css('display', 'flex');
-        $container.html('');
+        showContainer();
         currentLoadedRecipe = data;
         renderDetails(data);
     });
 
-    sub2 = PubSub.subscribe('recipe-was-unselected', function(msg, data) {
+    recipeWasUnselectedSub = PubSub.subscribe('recipe-was-unselected', function(msg, data) {
         console.log('unselected');
         console.log(data);
-        $container.css('display', 'none');
-        $container.html('');
+        resetContainer();
         currentLoadedRecipe = null;
     });
 
@@ -33,16 +33,21 @@ export function init() {
     });
 
 
-    $container.on('click', '#editRecipeBtn', function () {
+    $container.on('click', '#editRecipeBtn', function() {
         $editRecipeForm.show();
     });
 
-    $editRecipeForm.on('click', '#closeEditForm', function () {
+    $editRecipeForm.on('click', '#closeEditForm', function() {
         $editRecipeForm.hide();
     });
 
     $container.on('click', '#deleteRecipeBtn', function() {
-        console.log('DELETEd');
+        RecipesService.deleteRecipe(currentLoadedRecipe.id).then(function(msg) {
+            console.log(msg);
+            resetContainer();
+        }).catch(function(err) {
+            console.log(err);
+        });
     });
 
 }
@@ -119,12 +124,18 @@ function renderDetails(recipe) {
 
 }
 
-function resetContainer() {
+function showContainer() {
+    $container.css('display', 'flex');
+    $container.html('');
+}
 
+function resetContainer() {
+    $container.css('display', 'none');
+    $container.html('');
 }
 
 export function destroyComponent() {
     $container = null;
-    PubSub.unsubscribe(sub1);
-    PubSub.unsubscribe(sub2);
+    PubSub.unsubscribe(recipeWasSelectedSub);
+    PubSub.unsubscribe(recipeWasUnselectedSub);
 }
