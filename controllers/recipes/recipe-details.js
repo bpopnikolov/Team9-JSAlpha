@@ -1,15 +1,18 @@
 import * as RecipesService from './recipes-service.js';
+import * as RecipeFormController from './recipes-form.js';
 
 var $container;
-var $editRecipeForm;
+var $editFormComponent;
 var recipeWasSelectedSub;
 var recipeWasUnselectedSub;
+var recipeWasUpdatedSub;
 
 export function init() {
 
     $container = $('.recipe-desc');
     $container.css('display', 'none');
-    $editRecipeForm = $('#editRecipeForm');
+    $editFormComponent = $('#editFormComponent');
+    $editFormComponent.hide();
     var currentLoadedRecipe;
 
     recipeWasSelectedSub = PubSub.subscribe('recipe-was-selected', function(msg, data) {
@@ -26,6 +29,9 @@ export function init() {
         currentLoadedRecipe = null;
     });
 
+    recipeWasUpdatedSub = PubSub.subscribe('recipe-was-updated', function(msg, data) {
+        renderDetails(data);
+    });
 
     $container.on('click', '#settingsButton, .dropdownMenu li', function() {
         $container.find('.dropdownMenu').slideToggle(200);
@@ -34,12 +40,13 @@ export function init() {
 
 
     $container.on('click', '#editRecipeBtn', function() {
-        $editRecipeForm.show();
+        $editFormComponent.load('./views/recipes/recipes-form.html', function () {
+            RecipeFormController.init();
+            $editFormComponent.show();
+            PubSub.publish('recipe-form-mode', {mode: 'edit', recipe: currentLoadedRecipe});
+        });
     });
 
-    $editRecipeForm.on('click', '#closeEditForm', function() {
-        $editRecipeForm.hide();
-    });
 
     $container.on('click', '#deleteRecipeBtn', function() {
         RecipesService.deleteRecipe(currentLoadedRecipe.id).then(function(msg) {
@@ -138,4 +145,5 @@ export function destroyComponent() {
     $container = null;
     PubSub.unsubscribe(recipeWasSelectedSub);
     PubSub.unsubscribe(recipeWasUnselectedSub);
+    PubSub.unsubscribe(recipeWasUpdatedSub);
 }

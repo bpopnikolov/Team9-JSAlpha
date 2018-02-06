@@ -1,24 +1,28 @@
 import * as RecipesService from './recipes-service.js';
+import * as RecipeFormController from './recipes-form.js';
 //domCashe
 var $container;
-var $addRecipeForm;
+var $addFormComponent;
 var recipesHasChangedSub;
 var recipeWasDeletedSub;
+var recipeWasAddedSub;
+var recipeWasUpdatedSub;
 
 export function init() {
 
     $container = $('.recipes-list-container');
-    $addRecipeForm = $('#addRecipeForm');
-    var allRecipes = RecipesService.allRecipes;
-    renderRecipes(allRecipes);
+
+    $addFormComponent = $('#addFormComponent');
+    $addFormComponent.hide();
     var $addRecipeBtn = $('#addRecipe');
-    var $addRecipeFormBtn = $('#addFormAddRecipeBtn');
-    var $closeAddForm = $('#closeAddForm');
+
+    var allRecipes = RecipesService.allRecipes;
+    renderRecipes(allRecipes, true);
 
     recipesHasChangedSub = PubSub.subscribe('recipes-has-changed', function(msg, data) {
         allRecipes = data;
         $container.html('');
-        renderRecipes(data);
+        renderRecipes(data, true);
     });
 
     recipeWasDeletedSub = PubSub.subscribe('recipes-was-deleted', function(msg, recipeId) {
@@ -30,6 +34,21 @@ export function init() {
         $container.find(`.foodBox[data-id=${recipeId}]`).remove();
     });
 
+    recipeWasAddedSub = PubSub.subscribe('recipe-was-added', function(msg, data) {
+        var recipe = data;
+        allRecipes.push(recipe);
+        renderRecipe(recipe);
+    });
+
+    recipeWasUpdatedSub = PubSub.subscribe('recipe-was-updated', function(msg, data) {
+        allRecipes.forEach(function (recipe) {
+            if (recipe.id === data.id) {
+                recipe = data;
+            }
+        });
+        $container.html('');
+        renderRecipes(allRecipes);
+    });
 
     // RecipesService.getRecipes().then(function(data) {
     //     for (const key in data) {
@@ -77,38 +96,15 @@ export function init() {
     });
 
     $addRecipeBtn.on('click', function() {
-        $addRecipeForm.show();
-    });
-
-    $addRecipeFormBtn.on('click', function() {
-        var $titleInput = $('#addFormTitleInput');
-        var $imgUrlInput = $('#addFormImageInput');
-        var $descInput = $('#addFormDescInput');
-        var $ingrInput = $('#addFormIngrInput');
-
-        var ingr = $ingrInput.val().split('\n');
-
-        RecipesService.saveRecipe({
-            name: $titleInput.val(),
-            imgUrl: $imgUrlInput.val(),
-            description: $descInput.val(),
-            ingredients: ingr,
-        }).then(function(savedRecipe) {
-            //reset form
-            $addRecipeForm.find('input[type=text], textarea').val('');
-
-            $addRecipeForm.hide();
-
-            allRecipes.push(savedRecipe);
-            renderRecipe(savedRecipe);
-        }).catch(function(err) {
-            console.log(err);
+        $addFormComponent.show();
+        $addFormComponent.load('./views/recipes/recipes-form.html', function() {
+            RecipeFormController.init();
+            PubSub.publish('recipe-form-mode', {
+                mode: 'add'
+            });
         });
     });
 
-    $closeAddForm.on('click', function() {
-        $addRecipeForm.hide();
-    });
 }
 
 function renderRecipe(recipe) {
@@ -149,8 +145,11 @@ function renderRecipe(recipe) {
 
 }
 
-function renderRecipes(recipes) {
+function renderRecipes(recipes, sort) {
     if (recipes.length > 0) {
+        if (sort) {
+            recipes.sort(compareRecipesByName);
+        }
         recipes.forEach(function(recipe) {
             renderRecipe(recipe);
         });
@@ -159,8 +158,23 @@ function renderRecipes(recipes) {
     }
 }
 
+function compareRecipesByName(a, b) {
+    var name1 = a.name.toLowerCase();
+    var name2 = b.name.toLowerCase();
+
+    if (name1 < name2) {
+        return -1;
+    }
+    if (name1 > name2) {
+        return 1;
+    }
+    return 0;
+}
+
 export function destroyComponent() {
     $container = null;
     PubSub.unsubscribe(recipesHasChangedSub);
     PubSub.unsubscribe(recipeWasDeletedSub);
+    PubSub.unsubscribe(recipeWasAddedSub);
+    PubSub.unsubscribe(recipeWasUpdatedSub);
 }

@@ -29,23 +29,38 @@ export function watchForDataChange(dbName, cb) {
 export function writeData(dbName, value, cb) {
     var dbRef = firebase.database().ref(dbName);
     var dbEntry = dbRef.push();
-    dbEntry.set(value).then(function() {
-        dbEntry.once('value').then(function(snap) {
+    dbEntry.set(value).then(function () {
+        dbEntry.once('value').then(function (snap) {
             var data = snap.val();
             cb({
                 data: data,
                 key: dbEntry.key
             });
         });
-    }).catch(function(err) {
+    }).catch(function (err) {
         cb(null, err);
-    })
+    });
 }
 
-export function deleteData(dbName, id, cb) {
-    var dbRef = firebase.database().ref(dbName + id);
+export function updateData(dbName, value, cb) {
+    var dbRef = firebase.database().ref(dbName);
+    dbRef.set(value).then(function () {
+        dbRef.once('value').then(function (snap) {
+            var data = snap.val();
+            cb({
+                data: data,
+                key: dbRef.key
+            });
+        });
+    }).catch(function (err) {
+        cb(null, err);
+    });
+}
+
+export function deleteData(dbName, cb) {
+    var dbRef = firebase.database().ref(dbName);
     dbRef.remove().then(function() {
-        cb(id, null);
+        cb(dbRef.key, null);
     }).catch(function(err) {
         cb(err);
     });

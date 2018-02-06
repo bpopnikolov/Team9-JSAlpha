@@ -15,13 +15,14 @@ getRecipes().then(function(data) {
 
 export function saveRecipe(recipe) {
     return new Promise(function(resolve, reject) {
-        DbService.writeData('recipes', recipe, function(response, err) {
+        DbService.writeData('recipes/', recipe, function(response, err) {
             if (err) {
                 reject(err);
             } else {
                 var savedRecipe = response.data;
                 savedRecipe.id = response.key;
                 allRecipes.push(savedRecipe);
+                PubSub.publish('recipe-was-added', savedRecipe);
                 resolve(savedRecipe);
             }
         });
@@ -40,16 +41,36 @@ export function getRecipes() {
     });
 }
 
-export function deleteRecipe(id) {
+export function updateRecipe(recipe) {
     return new Promise(function(resolve, reject) {
-        DbService.deleteData('recipes/', id, function(data, err) {
+        DbService.updateData('recipes/' + recipe.id, recipe, function(response, err) {
             if (err) {
                 reject(err);
             } else {
-                allRecipes = allRecipes.filter(function (recipe) {
+                var updatedRecipe = response.data;
+                updatedRecipe.id = response.key;
+                allRecipes.forEach(function(recipe) {
+                    if (recipe.id === updatedRecipe.id) {
+                        recipe = updatedRecipe;
+                    }
+                });
+                PubSub.publish('recipe-was-updated', updatedRecipe);
+                resolve(updatedRecipe);
+            }
+        });
+    });
+}
+
+export function deleteRecipe(id) {
+    return new Promise(function(resolve, reject) {
+        DbService.deleteData('recipes/' + id, function(data, err) {
+            if (err) {
+                reject(err);
+            } else {
+                allRecipes = allRecipes.filter(function(recipe) {
                     if (recipe.id !== data) {
                         return recipe;
-                   } 
+                    }
                 });
                 PubSub.publish('recipes-was-deleted', data);
                 resolve(`The recipe was deleted successfully!`);

@@ -1,0 +1,220 @@
+.recipeFormComponent {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(191, 189, 186, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.recipeForm {
+    flex: 0 1 60%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 2px;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 5px -2px rgba(0, 0, 0, 0.5);
+    font-size: 1em;
+}
+
+.form-group {
+    flex: 0 1 auto;
+    min-width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px;
+}
+
+.form-group .control-label {
+    flex: 0 1 30%;
+    margin-right: 5px;
+}
+
+.form-group .input-control {
+    flex: 0 1 70%;
+    border-radius: 2px;
+    border: 1px solid #555;
+    min-height: 30px;
+}
+
+.image-preview {
+    flex: 1 1;
+    /* max-width: 60%; */
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: auto;
+}
+
+.image-preview img {
+    display: none;
+    width: 50%;
+    height: 100%;
+}
+
+.buttons-group {
+    flex: 0 1 auto;
+    min-width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 15px;
+}
+
+.buttons-group .btn {
+    margin-right: 10px;
+    /* padding: 0 10px 0 10px; */
+}
+
+/* input:focus,
+textarea:focus {
+    outline: none !important;
+    box-shadow: 0 0 8px rgb(100, 106, 221);
+}
+
+.form-group::placeholder {
+    color: rgba(58, 125, 79, 0.19);
+    opacity: 1;
+}
+
+.main-content,
+.modal-content-edit {
+    padding: 20px;
+}
+
+.modal,
+.modal-edit {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(68, 68, 68, 0.83)
+}
+
+.modal-content,
+.modal-content-edit {
+    background-color: #ffffff;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid #34495e;
+    width: 80%;
+    max-width: 800px;
+    color: #34495e;
+}
+
+.modal-content h1,
+.modal-content-edit h1 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 1.8em;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px 8px;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.3em;
+}
+
+.form-group label {
+    flex: none;
+    display: block;
+    width: 125px;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.form-group label.right-inline {
+    text-align: right;
+    padding-right: 8px;
+    padding-left: 10px;
+    width: auto;
+}
+
+.form-group .input-control {
+    flex: 1 1 auto;
+    display: block;
+    margin-bottom: 10px;
+    margin-right: 8px;
+    padding: 12px;
+    margin-top: -8px;
+    border: 1px solid #34495e;
+    border-radius: 4px;
+}
+
+.modal-content-edit > button {
+    padding: 5px 15px;
+    margin: 5px;
+    min-width: 100px
+}
+*/
+
+@media (max-width: 768px) {
+    .recipeForm {
+        flex: 0 1 auto;
+        width: 80%;
+        font-size: 1.25em;
+        padding: 20px 0 20px 0;
+    }
+    .form-group {
+        flex: 0 1 auto;
+        flex-direction: column;
+        justify-content: center;
+        margin: 10px;
+        width: 80%;
+        max-width: 50%;
+    }
+    .buttons-group {
+        flex: 0 1 auto;
+        min-width: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 10px;
+    }
+    .buttons-group .btn {
+        margin: 5px;
+    }
+    .form-group .input-control {
+        margin: 3px;
+    }
+    .form-group .control-label {
+        margin: 3px;
+    }
+}
