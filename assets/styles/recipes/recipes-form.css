@@ -60,6 +60,7 @@
     display: none;
     width: 50%;
     height: 100%;
+    border-radius: 2px;
 }
 
 .buttons-group {
@@ -75,115 +76,6 @@
     margin-right: 10px;
     /* padding: 0 10px 0 10px; */
 }
-
-/* input:focus,
-textarea:focus {
-    outline: none !important;
-    box-shadow: 0 0 8px rgb(100, 106, 221);
-}
-
-.form-group::placeholder {
-    color: rgba(58, 125, 79, 0.19);
-    opacity: 1;
-}
-
-.main-content,
-.modal-content-edit {
-    padding: 20px;
-}
-
-.modal,
-.modal-edit {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(68, 68, 68, 0.83)
-}
-
-.modal-content,
-.modal-content-edit {
-    background-color: #ffffff;
-    margin: auto;
-    padding: 20px;
-    border: 2px solid #34495e;
-    width: 80%;
-    max-width: 800px;
-    color: #34495e;
-}
-
-.modal-content h1,
-.modal-content-edit h1 {
-    margin-top: 0;
-    margin-bottom: 30px;
-    text-align: center;
-    font-size: 1.8em;
-}
-
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-
-@media (max-width: 768px) {
-    .main-content {
-        padding: 20px 8px;
-    }
-}
-
-.form-group {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 0.3em;
-}
-
-.form-group label {
-    flex: none;
-    display: block;
-    width: 125px;
-    font-weight: bold;
-    font-size: 1em;
-}
-
-.form-group label.right-inline {
-    text-align: right;
-    padding-right: 8px;
-    padding-left: 10px;
-    width: auto;
-}
-
-.form-group .input-control {
-    flex: 1 1 auto;
-    display: block;
-    margin-bottom: 10px;
-    margin-right: 8px;
-    padding: 12px;
-    margin-top: -8px;
-    border: 1px solid #34495e;
-    border-radius: 4px;
-}
-
-.modal-content-edit > button {
-    padding: 5px 15px;
-    margin: 5px;
-    min-width: 100px
-}
-*/
 
 @media (max-width: 768px) {
     .recipeForm {

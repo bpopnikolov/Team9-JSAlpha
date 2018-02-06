@@ -55,11 +55,11 @@ export function init() {
             submitEditForm();
         }
         //reset form
-        destroyForm();
+        removeForm();
     });
 
     $cancelBtn.on('click', function() {
-        destroyForm();
+        removeForm();
     });
 }
 
@@ -95,9 +95,13 @@ function submitEditForm() {
 
 }
 
-export function destroyForm() {
+function removeForm() {
     $recipeFormComponent.html('');
     $recipeFormComponent.hide();
+    destroyForm();
+}
+export function destroyForm() {
+    $recipeFormComponent = null;
     PubSub.unsubscribe(modeSub);
     mode = null;
 }
