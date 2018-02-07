@@ -66,8 +66,19 @@ export function init() {
         removeForm();
     });
 
+    $.validator.setDefaults({
+        submitHandler: function() {
+            if (mode === 'add') {
+                console.log('recipe added');
+                submitAddForm();
+            } else if (mode === 'edit') {
+                submitEditForm();
+            }
 
-console.log('FORM INIT');
+            removeForm();
+        }
+    });
+
     $formValidator = $recipeForm.validate({
         rules: {
             titleInput: 'required',
@@ -91,18 +102,8 @@ console.log('FORM INIT');
         }
     });
 
-    $.validator.setDefaults({
-        submitHandler: function() {
-            if (mode === 'add') {
-                console.log('recipe added');
-                submitAddForm();
-            } else if (mode === 'edit') {
-                submitEditForm();
-            }
 
-            removeForm();
-        }
-    });
+    console.log($formValidator);
 }
 
 function submitAddForm() {

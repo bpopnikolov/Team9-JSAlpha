@@ -41,6 +41,7 @@ export function init(options) {
         } else {
 
             loadDefaultRoute();
+            location.href = "#page-not-found";
         }
         activeRoute = currentRoute;
     });
@@ -73,8 +74,10 @@ function getCurrentRoute() {
 }
 
 function renderView(view) {
-    if (view === 'home') {
+    if (activeRoute === '#recipes') {
         PubSub.publish('recipe-was-unloaded');
+    }
+    if (view === 'home') {
         $('.app-container').load(`../../views/core/${view}.html`);
     } else if (view === 'recipes') {
         $('.app-container').load(`../../views/recipes/${view}.html`, RecipeController.init);
@@ -82,9 +85,9 @@ function renderView(view) {
 }
 
 function loadDefaultRoute() {
+    if (activeRoute === '#recipes') {
+        PubSub.publish('recipe-was-unloaded');
+    }
     $('.app-container').load(`../../views/core/page-not-found.html`);
     $('.list .active').removeClass('active');
-    location.hash = "#page-not-found";
-    PubSub.publish('recipe-was-unloaded');
 }
-
