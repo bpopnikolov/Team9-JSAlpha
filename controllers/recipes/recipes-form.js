@@ -67,7 +67,7 @@ export function init() {
     });
 
 
-
+console.log('FORM INIT');
     $formValidator = $recipeForm.validate({
         rules: {
             titleInput: 'required',
