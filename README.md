@@ -1,13 +1,6 @@
 Team9-JSAlpha
 =============
 
-This is Team9 project.
-
-Install dependencies
---------------------
-
-        bower install
-        
 
 Project Description
 -------------------   
