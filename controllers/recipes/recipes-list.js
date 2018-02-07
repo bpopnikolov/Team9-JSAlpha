@@ -77,7 +77,7 @@ export function init() {
 
 
 
-    $container.on('click', '.foodBox', function() {
+    $container.on('click', '.foodBox', function () {
         var $recipe = $(this);
         var recipeId = $(this).attr('data-id');
         var recipeObj = allRecipes.find(function(el) {

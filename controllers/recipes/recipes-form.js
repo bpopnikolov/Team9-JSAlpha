@@ -1,7 +1,10 @@
 import * as RecipesService from './recipes-service.js';
+
 var modeSub;
 var mode;
 var $recipeFormComponent;
+var $recipeForm;
+var $formValidator;
 var recipeToEdit;
 
 var $titleInput;
@@ -16,6 +19,7 @@ export function init() {
 
     // domCache
     $recipeFormComponent = $('.recipeFormComponent');
+    $recipeForm = $('#recipeForm');
     $titleInput = $recipeFormComponent.find('#titleInput');
     $imgUrlInput = $recipeFormComponent.find('#imageUrlInput');
     $imgPreview = $recipeFormComponent.find('#imgPreview');
@@ -47,24 +51,61 @@ export function init() {
         $imgPreview.attr('src', $(this).val()).fadeIn();
     });
 
-    $submitBtn.on('click', function() {
-        if (mode === 'add') {
-            console.log('recipe added');
-            submitAddForm();
-        } else if (mode === 'edit') {
-            submitEditForm();
-        }
-        //reset form
-        removeForm();
-    });
+    // $submitBtn.on('click', function() {
+    //     if (mode === 'add') {
+    //         console.log('recipe added');
+    //         submitAddForm();
+    //     } else if (mode === 'edit') {
+    //         submitEditForm();
+    //     }
+    //     //reset form
+    //     // removeForm();
+    // });
 
     $cancelBtn.on('click', function() {
         removeForm();
     });
+
+
+
+    $formValidator = $recipeForm.validate({
+        rules: {
+            titleInput: 'required',
+            imageUrlInput: 'required',
+            descriptionInput: 'required',
+            ingredientsInput: 'required',
+        },
+        messages: {
+            titleInput: {
+                required: 'The field is required!',
+            },
+            imageUrlInput: {
+                required: 'The field is required.',
+            },
+            descriptionInput: {
+                required: 'The field is required',
+            },
+            ingredientsInput: {
+                required: 'The field is required',
+            },
+        }
+    });
+
+    $.validator.setDefaults({
+        submitHandler: function() {
+            if (mode === 'add') {
+                console.log('recipe added');
+                submitAddForm();
+            } else if (mode === 'edit') {
+                submitEditForm();
+            }
+
+            removeForm();
+        }
+    });
 }
 
 function submitAddForm() {
-
     var ingr = $ingrInput.val().split('\n');
 
     RecipesService.saveRecipe({
@@ -102,6 +143,9 @@ function removeForm() {
 }
 export function destroyForm() {
     $recipeFormComponent = null;
-    PubSub.unsubscribe(modeSub);
     mode = null;
+    PubSub.unsubscribe(modeSub);
+    if ($formValidator) {
+        $formValidator.destroy();
+    }
 }

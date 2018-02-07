@@ -20,9 +20,8 @@ export function init(options) {
             // load current view html into app-container
             renderView(view);
         } else {
-            console.log('no route');
-            $('.app-container').load(`../../views/core/page-not-found.html`);
-            $('.list .active').removeClass('active');
+
+            loadDefaultRoute();
         }
     }
 
@@ -40,9 +39,8 @@ export function init(options) {
                 renderView(view);
             }
         } else {
-            console.log('no route change');
-            $('.app-container').load(`../../views/core/page-not-found.html`);
-            $('.list .active').removeClass('active');
+
+            loadDefaultRoute();
         }
         activeRoute = currentRoute;
     });
@@ -82,3 +80,11 @@ function renderView(view) {
         $('.app-container').load(`../../views/recipes/${view}.html`, RecipeController.init);
     }
 }
+
+function loadDefaultRoute() {
+    $('.app-container').load(`../../views/core/page-not-found.html`);
+    $('.list .active').removeClass('active');
+    location.hash = "#page-not-found";
+    PubSub.publish('recipe-was-unloaded');
+}
+

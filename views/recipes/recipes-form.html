@@ -1,28 +1,31 @@
-<form class="recipeForm">
+<form id="recipeForm" class="recipeForm">
     <div class="form-group">
-        <label class="control-label">Recipe Title</label>
-        <input type="text" class="input-control" id="titleInput" />
+        <label class="control-label" for="titleInput">Recipe Title</label>
+        <input id="titleInput" class="input-control" type="text" name="titleInput" />
+        <label class="error" for="titleInput"></label>
     </div>
-
     <div class="form-group">
-        <label class="control-label">Image Url</label>
-        <input type="text" class="input-control" id="imageUrlInput" />
+        <label class="control-label" for="imageUrlInput">Image Url</label>
+        <input id="imageUrlInput" class="input-control" type="url" name="imageUrlInput" />
+        <label class="error" for="imageUrlInput"></label>
     </div>
     <div class="image-preview">
         <img id="imgPreview" src="" alt="">
     </div>
     <div class="form-group">
-        <label class="control-label">Description</label>
-        <textarea class="input-control" rows="5" id="descriptionInput" value=""></textarea>
+        <label class="control-label" for="descriptionInput">Description</label>
+        <textarea id="descriptionInput" class="input-control" name="descriptionInput" rows="5"></textarea>
+        <label class="error" for="descriptionInput"></label>
     </div>
 
     <div class="form-group">
-        <label class="control-label">Ingredients</label>
-        <textarea class="input-control" rows="7" id="ingredientsInput"></textarea>
+        <label class="control-label" for="ingredientsInput">Ingredients</label>
+        <textarea id="ingredientsInput" class="input-control" name="ingredientsInput" rows="7"></textarea>
+        <label class="error" for="ingredientsInput"></label>
     </div>
 
     <div class="buttons-group">
-        <button type="button" class="btn" id="submitBtn"><span>Save</span></button>
+        <button type="submit" class="btn" id="submitBtn"><span>Save</span></button>
         <button type="button" class="btn" id="cancelBtn"><span>Cancel</span></button>
     </div>
 </form>
