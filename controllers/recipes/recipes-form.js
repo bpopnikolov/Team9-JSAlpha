@@ -28,11 +28,14 @@ export function init() {
     $submitBtn = $recipeFormComponent.find('#submitBtn');
     $cancelBtn = $recipeFormComponent.find('#cancelBtn');
 
+    var $formTitle = $('#formTitle');
+
     modeSub = PubSub.subscribe('recipe-form-mode', function(msg, data) {
         mode = data.mode;
+        $formTitle.text('Add Recipe');
         if (data.recipe) {
             recipeToEdit = data.recipe;
-
+            $formTitle.text('Edit Recipe');
             $titleInput.val(recipeToEdit.name);
             $imgUrlInput.val(recipeToEdit.imgUrl);
             $imgPreview.attr('src', recipeToEdit.imgUrl);
@@ -51,16 +54,6 @@ export function init() {
         $imgPreview.attr('src', $(this).val()).fadeIn();
     });
 
-    // $submitBtn.on('click', function() {
-    //     if (mode === 'add') {
-    //         console.log('recipe added');
-    //         submitAddForm();
-    //     } else if (mode === 'edit') {
-    //         submitEditForm();
-    //     }
-    //     //reset form
-    //     // removeForm();
-    // });
 
     $cancelBtn.on('click', function() {
         removeForm();
@@ -81,20 +74,34 @@ export function init() {
 
     $formValidator = $recipeForm.validate({
         rules: {
-            titleInput: 'required',
-            imageUrlInput: 'required',
-            descriptionInput: 'required',
-            ingredientsInput: 'required',
+            titleInput: {
+                required: true,
+                minlength: 3,
+                maxlength: 35,
+            },
+            imageUrlInput: {
+                required: true,
+            },
+            descriptionInput: {
+                required: true,
+                minlength: 5,
+            },
+            ingredientsInput: {
+                required: true,
+            },
         },
         messages: {
             titleInput: {
                 required: 'The field is required!',
+                minlength: 'The title is too short',
+                maxlength: 'The title is too long',
             },
             imageUrlInput: {
                 required: 'The field is required.',
             },
             descriptionInput: {
                 required: 'The field is required',
+                minlength: 'The description is too short',
             },
             ingredientsInput: {
                 required: 'The field is required',
@@ -102,8 +109,6 @@ export function init() {
         }
     });
 
-
-    console.log($formValidator);
 }
 
 function submitAddForm() {

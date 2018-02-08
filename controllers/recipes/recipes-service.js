@@ -10,7 +10,7 @@ getRecipes().then(function(data) {
             allRecipes.push(currRecipe);
         }
     }
-    PubSub.publish('recipes-has-changed', allRecipes);
+    PubSub.publish('recipes-has-changed', allRecipes.slice());
 });
 
 export function saveRecipe(recipe) {

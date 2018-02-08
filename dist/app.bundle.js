@@ -76,11 +76,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.init = init;
 exports.destroyComponent = destroyComponent;
 
-var _recipesList = __webpack_require__(7);
+var _recipesList = __webpack_require__(6);
 
 var RecipesListController = _interopRequireWildcard(_recipesList);
 
-var _recipeDetails = __webpack_require__(8);
+var _recipeDetails = __webpack_require__(7);
 
 var RecipeDetailsController = _interopRequireWildcard(_recipeDetails);
 
@@ -134,7 +134,7 @@ getRecipes().then(function (data) {
             allRecipes.push(currRecipe);
         }
     }
-    PubSub.publish('recipes-has-changed', allRecipes);
+    PubSub.publish('recipes-has-changed', allRecipes.slice());
 });
 
 function saveRecipe(recipe) {
@@ -260,11 +260,14 @@ function init() {
     $submitBtn = $recipeFormComponent.find('#submitBtn');
     $cancelBtn = $recipeFormComponent.find('#cancelBtn');
 
+    var $formTitle = $('#formTitle');
+
     modeSub = PubSub.subscribe('recipe-form-mode', function (msg, data) {
         mode = data.mode;
+        $formTitle.text('Add Recipe');
         if (data.recipe) {
             recipeToEdit = data.recipe;
-
+            $formTitle.text('Edit Recipe');
             $titleInput.val(recipeToEdit.name);
             $imgUrlInput.val(recipeToEdit.imgUrl);
             $imgPreview.attr('src', recipeToEdit.imgUrl);
@@ -281,17 +284,6 @@ function init() {
     $('#imageUrlInput').on('input', function () {
         $imgPreview.attr('src', $(this).val()).fadeIn();
     });
-
-    // $submitBtn.on('click', function() {
-    //     if (mode === 'add') {
-    //         console.log('recipe added');
-    //         submitAddForm();
-    //     } else if (mode === 'edit') {
-    //         submitEditForm();
-    //     }
-    //     //reset form
-    //     // removeForm();
-    // });
 
     $cancelBtn.on('click', function () {
         removeForm();
@@ -312,28 +304,40 @@ function init() {
 
     $formValidator = $recipeForm.validate({
         rules: {
-            titleInput: 'required',
-            imageUrlInput: 'required',
-            descriptionInput: 'required',
-            ingredientsInput: 'required'
+            titleInput: {
+                required: true,
+                minlength: 3,
+                maxlength: 35
+            },
+            imageUrlInput: {
+                required: true
+            },
+            descriptionInput: {
+                required: true,
+                minlength: 5
+            },
+            ingredientsInput: {
+                required: true
+            }
         },
         messages: {
             titleInput: {
-                required: 'The field is required!'
+                required: 'The field is required!',
+                minlength: 'The title is too short',
+                maxlength: 'The title is too long'
             },
             imageUrlInput: {
                 required: 'The field is required.'
             },
             descriptionInput: {
-                required: 'The field is required'
+                required: 'The field is required',
+                minlength: 'The description is too short'
             },
             ingredientsInput: {
                 required: 'The field is required'
             }
         }
     });
-
-    console.log($formValidator);
 }
 
 function submitAddForm() {
@@ -463,21 +467,14 @@ function deleteData(dbName, cb) {
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(5);
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
-var _appStateService = __webpack_require__(6);
+var _appStateService = __webpack_require__(5);
 
 var AppStateService = _interopRequireWildcard(_appStateService);
 
-var _header = __webpack_require__(9);
+var _header = __webpack_require__(8);
 
 var HeaderController = _interopRequireWildcard(_header);
 
@@ -485,7 +482,7 @@ var _databaseService = __webpack_require__(3);
 
 var DBService = _interopRequireWildcard(_databaseService);
 
-var _sidenav = __webpack_require__(11);
+var _sidenav = __webpack_require__(10);
 
 var SidenavController = _interopRequireWildcard(_sidenav);
 
@@ -498,7 +495,7 @@ $(function () {
 });
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -523,7 +520,7 @@ function init() {
 }
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -586,40 +583,9 @@ function init() {
     });
 
     recipeWasUpdatedSub = PubSub.subscribe('recipe-was-updated', function (msg, data) {
-        allRecipes.forEach(function (recipe) {
-            if (recipe.id === data.id) {
-                recipe = data;
-            }
-        });
         $container.html('');
         renderRecipes(allRecipes);
     });
-
-    // RecipesService.getRecipes().then(function(data) {
-    //     for (const key in data) {
-    //         if (typeof data.key === 'undefined') {
-    //             var currRecipe = data[key];
-    //             currRecipe.id = key;
-    //             allRecipes.push(currRecipe);
-    //             renderRecipe(currRecipe);
-    //         }
-    //     }
-    // });
-
-
-    // Listens for change in the DB. Be careful when using!
-    // RecipesService.onRecipesChange(function (data, err) {
-    //     var updated = [];
-    //     for (const key in data) {
-    //         if (typeof data.key === 'undefined') {
-    //             var currRecipe = data[key];
-    //             currRecipe.id = key;
-    //             updated.push(currRecipe);
-    //             renderRecipe(currRecipe);
-    //         }
-    //     }
-    // });
-
 
     $container.on('click', '.foodBox', function () {
         var $recipe = $(this);
@@ -722,7 +688,7 @@ function destroyComponent() {
 }
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -886,7 +852,7 @@ function destroyComponent() {
 }
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -901,7 +867,7 @@ var _recipes = __webpack_require__(0);
 
 var RecipeController = _interopRequireWildcard(_recipes);
 
-var _router = __webpack_require__(10);
+var _router = __webpack_require__(9);
 
 var Router = _interopRequireWildcard(_router);
 
@@ -971,7 +937,7 @@ $.fn.toggleZindex = function () {
 };
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1078,7 +1044,7 @@ function loadDefaultRoute() {
 }
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

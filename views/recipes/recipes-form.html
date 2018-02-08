@@ -1,11 +1,14 @@
 <form id="recipeForm" class="recipeForm">
     <div class="form-group">
-        <label class="control-label" for="titleInput">Recipe Title</label>
+        <h1 id="formTitle" class="form-title"></h1>
+    </div>
+    <div class="form-group">
+        <label class="control-label required" for="titleInput">Recipe Title</label>
         <input id="titleInput" class="input-control" type="text" name="titleInput" />
         <label class="error" for="titleInput"></label>
     </div>
     <div class="form-group">
-        <label class="control-label" for="imageUrlInput">Image Url</label>
+        <label class="control-label required" for="imageUrlInput">Image Url</label>
         <input id="imageUrlInput" class="input-control" type="url" name="imageUrlInput" />
         <label class="error" for="imageUrlInput"></label>
     </div>
@@ -13,13 +16,13 @@
         <img id="imgPreview" src="" alt="">
     </div>
     <div class="form-group">
-        <label class="control-label" for="descriptionInput">Description</label>
+        <label class="control-label required" for="descriptionInput">Description</label>
         <textarea id="descriptionInput" class="input-control" name="descriptionInput" rows="5"></textarea>
         <label class="error" for="descriptionInput"></label>
     </div>
 
     <div class="form-group">
-        <label class="control-label" for="ingredientsInput">Ingredients</label>
+        <label class="control-label required" for="ingredientsInput">Ingredients</label>
         <textarea id="ingredientsInput" class="input-control" name="ingredientsInput" rows="7"></textarea>
         <label class="error" for="ingredientsInput"></label>
     </div>

@@ -41,40 +41,9 @@ export function init() {
     });
 
     recipeWasUpdatedSub = PubSub.subscribe('recipe-was-updated', function(msg, data) {
-        allRecipes.forEach(function (recipe) {
-            if (recipe.id === data.id) {
-                recipe = data;
-            }
-        });
         $container.html('');
         renderRecipes(allRecipes);
     });
-
-    // RecipesService.getRecipes().then(function(data) {
-    //     for (const key in data) {
-    //         if (typeof data.key === 'undefined') {
-    //             var currRecipe = data[key];
-    //             currRecipe.id = key;
-    //             allRecipes.push(currRecipe);
-    //             renderRecipe(currRecipe);
-    //         }
-    //     }
-    // });
-
-
-    // Listens for change in the DB. Be careful when using!
-    // RecipesService.onRecipesChange(function (data, err) {
-    //     var updated = [];
-    //     for (const key in data) {
-    //         if (typeof data.key === 'undefined') {
-    //             var currRecipe = data[key];
-    //             currRecipe.id = key;
-    //             updated.push(currRecipe);
-    //             renderRecipe(currRecipe);
-    //         }
-    //     }
-    // });
-
 
 
     $container.on('click', '.foodBox', function () {
