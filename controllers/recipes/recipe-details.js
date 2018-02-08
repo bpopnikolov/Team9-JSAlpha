@@ -16,7 +16,7 @@ export function init() {
     var currentLoadedRecipe;
 
     recipeWasSelectedSub = PubSub.subscribe('recipe-was-selected', function(msg, data) {
-        console.log(data);
+        console.log('selected');
         showContainer();
         currentLoadedRecipe = data;
         renderDetails(data);
@@ -24,7 +24,6 @@ export function init() {
 
     recipeWasUnselectedSub = PubSub.subscribe('recipe-was-unselected', function(msg, data) {
         console.log('unselected');
-        console.log(data);
         resetContainer();
         currentLoadedRecipe = null;
     });
