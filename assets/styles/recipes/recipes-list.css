@@ -47,6 +47,7 @@
     min-height: 70px;
     border-radius: 2px;
     cursor: pointer;
+    overflow-wrap: break-word;
 }
 
 .texts {
@@ -56,25 +57,28 @@
     justify-content: center;
     flex: 1 1 80%;
     overflow: hidden;
-    padding: 5px;
+    padding: 15px 10px;
 }
 
 .foodBox .texts h3 {
-    display: inline-block;
+    flex: 1 1;
     color: #34495e;
     font-size: 1.35em;
     text-overflow: ellipsis;
     max-width: 100%;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .foodBox .texts p {
+    flex: 1 1;
     color: #555555;
     font-size: 0.85em;
     margin: 0;
     text-overflow: ellipsis;
     max-width: 100%;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 @media (max-width: 768px) {
