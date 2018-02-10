@@ -111,7 +111,6 @@ function destroyComponent() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.allRecipes = undefined;
 exports.saveRecipe = saveRecipe;
 exports.getRecipes = getRecipes;
 exports.updateRecipe = updateRecipe;
@@ -124,19 +123,6 @@ var DbService = _interopRequireWildcard(_databaseService);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var allRecipes = exports.allRecipes = [];
-
-getRecipes().then(function (data) {
-    for (var key in data) {
-        if (typeof data.key === 'undefined') {
-            var currRecipe = data[key];
-            currRecipe.id = key;
-            allRecipes.push(currRecipe);
-        }
-    }
-    PubSub.publish('recipes-has-changed', allRecipes.slice());
-});
-
 function saveRecipe(recipe) {
     return new Promise(function (resolve, reject) {
         DbService.writeData('recipes/', recipe, function (response, err) {
@@ -145,7 +131,6 @@ function saveRecipe(recipe) {
             } else {
                 var savedRecipe = response.data;
                 savedRecipe.id = response.key;
-                allRecipes.push(savedRecipe);
                 PubSub.publish('recipe-was-added', savedRecipe);
                 resolve(savedRecipe);
             }
@@ -159,7 +144,15 @@ function getRecipes() {
             if (err) {
                 reject(err);
             } else {
-                resolve(data);
+                var currRecipes = [];
+                for (var key in data) {
+                    if (typeof data.key === 'undefined') {
+                        var currRecipe = data[key];
+                        currRecipe.id = key;
+                        currRecipes.push(currRecipe);
+                    }
+                }
+                resolve(currRecipes.slice());
             }
         });
     });
@@ -173,11 +166,6 @@ function updateRecipe(recipe) {
             } else {
                 var updatedRecipe = response.data;
                 updatedRecipe.id = response.key;
-                allRecipes.forEach(function (recipe) {
-                    if (recipe.id === updatedRecipe.id) {
-                        recipe = updatedRecipe;
-                    }
-                });
                 PubSub.publish('recipe-was-updated', updatedRecipe);
                 resolve(updatedRecipe);
             }
@@ -191,11 +179,6 @@ function deleteRecipe(id) {
             if (err) {
                 reject(err);
             } else {
-                exports.allRecipes = allRecipes = allRecipes.filter(function (recipe) {
-                    if (recipe.id !== data) {
-                        return recipe;
-                    }
-                });
                 PubSub.publish('recipes-was-deleted', data);
                 resolve('The recipe was deleted successfully!');
             }
@@ -558,13 +541,13 @@ function init() {
     $addFormComponent.hide();
     var $addRecipeBtn = $('#addRecipe');
 
-    var allRecipes = RecipesService.allRecipes;
-    renderRecipes(allRecipes, true);
+    var allRecipes = [];
 
-    recipesHasChangedSub = PubSub.subscribe('recipes-has-changed', function (msg, data) {
+    RecipesService.getRecipes().then(function (data) {
         allRecipes = data;
-        $container.html('');
-        renderRecipes(data, true);
+        renderRecipes(allRecipes);
+    }).catch(function (err) {
+        console.log(err);
     });
 
     recipeWasDeletedSub = PubSub.subscribe('recipes-was-deleted', function (msg, recipeId) {
@@ -578,7 +561,9 @@ function init() {
 
     recipeWasAddedSub = PubSub.subscribe('recipe-was-added', function (msg, data) {
         var recipe = data;
+        console.log('before', allRecipes);
         allRecipes.push(recipe);
+        console.log('after', allRecipes);
         renderRecipe(recipe);
     });
 

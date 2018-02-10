@@ -1,5 +1,6 @@
 import * as RecipesService from './recipes-service.js';
 import * as RecipeFormController from './recipes-form.js';
+import { allRecipes } from './recipes-service.js';
 //domCashe
 var $container;
 var $addFormComponent;
@@ -16,13 +17,13 @@ export function init() {
     $addFormComponent.hide();
     var $addRecipeBtn = $('#addRecipe');
 
-    var allRecipes = RecipesService.allRecipes;
-    renderRecipes(allRecipes, true);
+    var allRecipes = [];
 
-    recipesHasChangedSub = PubSub.subscribe('recipes-has-changed', function(msg, data) {
+    RecipesService.getRecipes().then(function(data) {
         allRecipes = data;
-        $container.html('');
-        renderRecipes(data, true);
+        renderRecipes(allRecipes);
+    }).catch(function (err) {
+        console.log(err);
     });
 
     recipeWasDeletedSub = PubSub.subscribe('recipes-was-deleted', function(msg, recipeId) {
@@ -36,7 +37,9 @@ export function init() {
 
     recipeWasAddedSub = PubSub.subscribe('recipe-was-added', function(msg, data) {
         var recipe = data;
+        console.log('before', allRecipes);
         allRecipes.push(recipe);
+        console.log('after', allRecipes);
         renderRecipe(recipe);
     });
 
@@ -46,7 +49,7 @@ export function init() {
     });
 
 
-    $container.on('click', '.foodBox', function () {
+    $container.on('click', '.foodBox', function() {
         var $recipe = $(this);
         var recipeId = $(this).attr('data-id');
         var recipeObj = allRecipes.find(function(el) {
