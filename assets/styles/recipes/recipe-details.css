@@ -10,6 +10,13 @@
     border-radius: 2px;
 }
 
+@media (max-width: 750px) {
+    .recipe-desc {
+        margin-top: 0;
+
+    }
+}
+
 .manage-recipe {
     flex: 1 1;
     align-self: flex-end;

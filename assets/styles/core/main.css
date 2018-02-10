@@ -42,6 +42,12 @@ p {
     cursor: pointer;
 }
 
+.btn.danger {
+    background-color: orangered;
+}
+.btn.danger:focus, .btn.danger:hover {
+    background-color: red;
+}
 .btn:hover,
 .btn:focus {
     background-color: #27ae60;
